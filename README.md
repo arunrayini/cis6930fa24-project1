@@ -40,11 +40,7 @@ The program can be executed using the following command-line format:
 
 pipenv run python redactor.py --input '*.txt' \
                     --names --dates --phones --address\
-                    --concept
-
-https://github.com/user-attachments/assets/8fd0215d-b462-4c16-9cbf-7744c963536d
-
- 'kids' \
+                    --concept'kids' \
                     --output 'files/' \
                     --stats stderr
 commands used for the program specifically in order to execute:
