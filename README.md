@@ -28,7 +28,7 @@ Python Version: This project was developed and tested on Python 3.11.5.
 2.Install dependencies using Pipenv:
                       pipenv install -e .
 3.Download the spaCy language model:
-                      pipenv run python -m spacy download en_core_web_sm
+                      pipenv run python -m spacy download en_core_web_md
 
 # How to Run
 General Syntax

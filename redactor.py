@@ -10,7 +10,7 @@ nltk.download('wordnet')
 from nltk.corpus import wordnet as wn
 
 # Loading the spaCy model
-nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_md")
 
 # List of common city names to ensure they are redacted, including "Riverside"
 COMMON_CITY_NAMES = ["Riverside", "New York", "Los Angeles", "Houston", "Chicago", "Phoenix", "Philadelphia","London", "San Antonio", "San Diego"]
