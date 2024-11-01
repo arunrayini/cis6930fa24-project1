@@ -1,5 +1,5 @@
  #  cis6930fa24 -- Project 1
- 
+
  Name: Arun Kumar Reddy Rayini
 
 # Project Description:
@@ -7,9 +7,9 @@
  #  The Redactor
  "The Redactor" is a powerful tool created to anonymize sensitive data within text documents. Designed for applications that handle confidential information, this tool aims to ensure privacy by identifying and redacting personal and sensitive details. It is particularly suitable for sectors where data privacy is paramount, such as legal, healthcare, and government agencies. The tool recognizes and censors names, dates, phone numbers, addresses, and user-defined concepts by leveraging advanced natural language processing (NLP) capabilities through the spaCy and nltk libraries. These libraries allow for intelligent entity recognition and synonym expansion, which together enable flexible, context-aware redaction.
 
-Using spaCy's robust Named Entity Recognition (NER) model, "The Redactor" can identify names, dates, and addresses in various formats, making it adaptable to diverse document types and structures. The tool also integrates nltk's WordNet to manage concepts through synonym expansion. This means that users can specify a theme or topic to redact, such as "confidentiality" or "privacy," and "The Redactor" will locate not only exact matches but also related terms, thereby redacting entire sentences where these concepts appear. This ensures a comprehensive approach to redaction, going beyond simple keyword-based methods.
+Using spaCy's robust Named Entity Recognition (NER) model, "The Redactor" can identify names, dates, and addresses in various formats, making it adaptable to diverse document types and structures. The tool also integrates nltk's WordNet to manage concepts through synonym expansion. This means that users can specify a theme or topic to redact, and "The Redactor" will locate not only exact matches but also related terms, thereby redacting entire sentences where these concepts appear. This ensures a comprehensive approach to redaction, going beyond simple keyword-based methods.
 
-Each identified sensitive term is replaced with a customizable block character to maintain document formatting while preventing exposure of the original information. The tool can handle multiple file types and supports bulk processing by taking advantage of flexible command-line arguments. Users can specify files through a glob pattern, control which types of sensitive information to censor, and even define where statistics about the redaction process will be output (e.g., to the terminal or a designated file).
+Each identified sensitive term is replaced with a customizable block character to maintain document formatting while preventing exposure of the original information. The tool can handle multiple file types and supports bulk processing by taking advantage of flexible command-line arguments. Users can specify files through a glob pattern, control which types of sensitive information to censor, and even define where statistics about the redaction process will be output.
 
 In addition to its redaction capabilities, "The Redactor" provides detailed statistics on each redaction process. It generates a summary for each file, reporting counts of names, dates, phone numbers, addresses, and concepts that were censored. This data is helpful for verifying the tool’s effectiveness and ensuring compliance with privacy standards.
 
@@ -19,17 +19,18 @@ In addition to its redaction capabilities, "The Redactor" provides detailed stat
 
 Pipenv for virtual environment and dependency management: pip install pipenv
 
+Python Version: This project was developed and tested on Python 3.11.5.
+
 # Setup Instructions
 1.Clone the repository and navigate into the project directory:
-                      git clone <repository_url>
-                      cd <project_directory>
+                      git clone <https://github.com/arunrayini/cis6930fa24-project1.git>
+                      cd <cis6930fa24-project1>
 2.Install dependencies using Pipenv:
-
                       pipenv install -e .
 3.Download the spaCy language model:
                       pipenv run python -m spacy download en_core_web_sm
 
-# Running the Program
+# How to Run
 General Syntax
 The program can be executed using the following command-line format:
 
@@ -45,7 +46,7 @@ commands used for the program specifically in order to execute:
 
 # Command-Line Arguments
 
---input: Takes a glob pattern to specify the input files (e.g., *.txt). This allows flexibility to choose specific files or groups.
+--input: Takes a glob pattern to specify the input files. This allows flexibility to choose specific files or groups.
 
 --output: Specifies the directory where redacted files will be saved. Each file is saved with a .censored extension, ensuring the original file remains untouched.
 
@@ -143,16 +144,36 @@ Statistics include counts of each type of redaction, enabling detailed tracking 
 
 # Assumptions and Known Limitations
 
-Assumptions
-Concept Synonyms: For concept redaction, all related terms in the WordNet synset are relevant for redaction.
-Character Masking: A full-block Unicode character (█) is used for redaction, preserving the layout without revealing the text.
-Date Formats: The date redaction only covers common formats and may miss ambiguous date representations.
+Assumptions:
 
-Limitations
+# Partial and Full Email Redaction: 
+When handling email addresses, the tool generally focuses on the name portion of the email. However, sometimes the entire email address may be redacted, depending on how the address is detected. This approach is intended to enhance flexibility in redaction but may lead to variations in output, where some emails appear partially redacted while others are fully obscured.
+
+
+# Customizable Redaction Character:
+By default, the Unicode block character (█) is used to replace sensitive information. This character makes redactions visually clear while maintaining document structure. Users can adjust this character based on preference, providing flexibility for different formatting requirements.
+
+# File Accessibility and Directory Creation: 
+Input files must be accessible and readable for successful processing. If files are missing or permissions are restricted, the tool will display an error message and continue to the next file.
+
+# Sentence-Level Redaction for Concepts: 
+When redacting based on concepts, entire sentences containing the concept or related terms are fully redacted. This approach prevents partial information about the concept from remaining visible, but it may lead to larger text segments being removed than strictly necessary.
+
+# Limitations
+
+Broad Redaction of Concepts:
+The tool uses WordNet to expand concepts through synonyms and hypernyms, enabling the redaction of not only the specified concept but also related terms and higher-level categories. While this method ensures comprehensive privacy by capturing contextually related terms, it may occasionally lead to over-redaction if loosely associated terms are also removed.
+
+Inconsistent Email Redaction: While the primary goal is to target names within emails, the regex pattern may result in complete email redaction in some cases, depending on text context.
+
+Python Version: This project was developed and tested on Python 3.11.5 instead of python 3.12
 
 Non-U.S. Address Formats: The tool’s address redaction is focused on U.S. formats and may not work effectively for international addresses.
 
-Multi-word Names: Complex names (e.g., names with titles) may not always redact correctly due to limitations in NER.
+Multi-word Names: Complex names may not always redact correctly due to limitations in NER.
+
+Ambiguity in Address and Name Detection: Common names that are also place names may lead to ambiguities, resulting in over- or under-redaction.
+
 
 
 
