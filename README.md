@@ -19,7 +19,7 @@ In addition to its redaction capabilities, "The Redactor" provides detailed stat
 
 Pipenv for virtual environment and dependency management: pip install pipenv
 
-Python Version: This project was developed and tested on Python 3.11.5.
+
 
 # Setup Instructions
 1.Clone the repository and navigate into the project directory:
@@ -166,7 +166,7 @@ The tool uses WordNet to expand concepts through synonyms and hypernyms, enablin
 
 Inconsistent Email Redaction: While the primary goal is to target names within emails, the regex pattern may result in complete email redaction in some cases, depending on text context.
 
-Python Version: This project was developed and tested on Python 3.11.5 instead of python 3.12
+
 
 Non-U.S. Address Formats: The tool’s address redaction is focused on U.S. formats and may not work effectively for international addresses.
 
