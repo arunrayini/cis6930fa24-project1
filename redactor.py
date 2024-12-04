@@ -173,9 +173,9 @@ def redact_phones(text, redaction_counts):
     return redacted_text
 
 def process_files(input_patterns, output_dir, args):
-    """Process each input file, apply redactions, and save the results."""
+    """Processing each input file, apply redactions, and save the results."""
 
-    output_dir = "files"  # Directory to save redacted files with .censored extension
+    # Ensure the specified output directory exists
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
@@ -234,17 +234,17 @@ def process_files(input_patterns, output_dir, args):
             if args.concept:
                 redacted_text = redact_concepts(redacted_text, args.concept, redaction_counts)
 
-            # Saving redacted file in "files" directory with .censored extension
-            output_file = os.path.join(output_dir, os.path.basename(file) + '.censored')
+            # Saving the redacted file to the specified output directory with a .censored extension
+            output_file = os.path.join(output_dir, os.path.splitext(os.path.basename(file))[0] + '.censored')
             with open(output_file, 'w', encoding='utf-8') as f:
                 f.write(redacted_text)
             print(f"Redacted file saved to {output_file}")
 
-            # Output stats to terminal or individual stats file
+            # Output stats to terminal or specified stats path
             if args.stats in ['stdout', 'stderr']:
                 print(f"\nStats for {file}:\n{generate_stats_output(redaction_counts)}")
             else:
-                stats_file_path = os.path.join(output_dir, os.path.basename(file) + '.stats')
+                stats_file_path = os.path.join(output_dir, os.path.splitext(os.path.basename(file))[0] + '.stats')
                 write_stats_to_file(stats_file_path, redaction_counts)
 
         except OSError as e:
